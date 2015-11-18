@@ -81,9 +81,12 @@ void graph_add_vertex(graphCDT* testa){
     }
 }
 
-//da finire
 void crea_edge(graphCDT* testa){
-
+    vertextT* vert=testa->vertices;
+    while(testa!=NULL){
+        testa->edges=raph_add_edge(testa);
+        testa=testa->next;
+    }
 }
 
 int main(){

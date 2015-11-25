@@ -33,8 +33,8 @@ nodo* crea_nodo(){
 
 int decisione(){
     int tmp=-1;
-    while(tmp!=1||tmp!=0){
-        printf("\nInserire 0 per si o 1 per no ");
+    while(tmp!=1&&tmp!=0){                  //corretto l'errore di logica
+        printf("\nInserire 1 per si o 0 per no ");
         scanf("%d",&tmp);
     }
     return tmp;
@@ -51,7 +51,7 @@ void alloca_figlo(nodo* radice){
                 return;
             }
         }else{  //altrimenti chiedo se vuole scorrere il figio
-            printf("\nLa radice &d ha già un figio a DX paassare a questo nodo per inserire il prossimo figio?");
+            printf("\nLa radice %d ha gia' un figio a DX paassare a questo nodo per inserire il prossimo figio?");
             if(decisione()){
                 alloca_figlo(radice->DX);
                 return;
@@ -66,7 +66,7 @@ void alloca_figlo(nodo* radice){
                 return;
             }
         }else{  //altrimenti chiedo se vuole scorrere il figio
-            printf("\nLa radice &d ha già un figio a SX paassare a questo nodo per inserire il prossimo figio?");
+            printf("\nLa radice %d ha gia' un figio a SX paassare a questo nodo per inserire il prossimo figio?");
             if(decisione()){
                 alloca_figlo(radice->SX);
                 return;
@@ -81,7 +81,7 @@ int main(){
     nodo* radice = crea_nodo();
 
     printf("\nSi vuole inserire dei figli?");
-    
+
     //non entra nel ciclo ma la funzione decisiione all'infinito
     while(decisione()){
         printf("\nSi procede con l'inserimento di %d\n",n_vet);

@@ -1,0 +1,109 @@
+//Marini Fabio 4CI
+//inserimento di n nodi in un albero
+
+#include <stdio.h>
+
+//struttura del nodo di un albero
+typedef struct Nodo{
+    int info;
+    struct Nodo* nextSx;
+    struct Nodo* nextDx;
+}node;
+
+//procedure
+void insert(node** radice);
+void stampa(node* radice);
+
+//funzione principale
+int main(){
+    node* radice=NULL;
+    int n=0;
+    //chiedo all'utente di inserire i prossimi nodi
+    printf("Quanti nodi vuoi inserire :");
+    scanf("%d", &n);
+    for(int i=0;i<n;i++){
+        insert(&radice);
+    }
+    //stampo l'albero
+    stampa(radice);
+    return 0;
+    //fine
+}
+
+void insert(node** radice){
+    if(*radice==NULL){
+        //gestisco l'allocazione del nodo radice
+        node* first=malloc(sizeof(node));
+        int val=0;
+        printf("Inserisci la radice: ");
+        scanf("%d", &val);
+        first->info=val;
+        first->nextSx=NULL;
+        first->nextDx=NULL;
+        //l'albero e' un puntatore alla radice
+        *radice=first;
+    }
+    else
+    {
+        //gestisco la scelta dell'utente (se inserire a destra o a sinistra)
+        char scelta= ' ';
+        node* scorri= *radice;  //nodo di scorrimento
+        do{
+            printf("Vuoi inserire a destra o a sinistra? (d/s)");
+            fflush(stdin);
+            scanf("%c", &scelta);
+        }while(scelta != 's' && scelta != 'd' && scelta != 'S' && scelta != 'D');
+        if(scelta== 'D')
+            scelta='d';
+        if(scelta== 'S')
+            scelta='s';
+        switch(scelta){
+        case 'd':   //l'utente ha scelto di inserire il nodo a destra
+            if(scorri->nextDx == NULL)  // se il nodo figlio destro è nullo, aggiungo il nuovo nodo
+            {
+                node* tmp= malloc(sizeof(node));
+                printf("Inserisci valore: ");
+                scanf("%d", &tmp->info);
+                tmp->nextSx=NULL;
+                tmp->nextDx=NULL;
+                scorri->nextDx=tmp; //operazione di aggiunta del nodo
+            }
+            else    //altrimenti vado nella posizione successiva
+            {
+                node* prox=scorri->nextDx;
+                insert(&prox);
+            }
+            break;
+        case 's':   //l'utente ha scelto di inserire il nodo a sinistra
+            if(scorri->nextSx == NULL)  // se il nodo figlio sinistro è nullo, aggiungo il nuovo nodo
+            {
+                node* tmp= malloc(sizeof(node));
+                printf("Inserisci valore: ");
+                scanf("%d", &tmp->info);
+                tmp->nextSx=NULL;
+                tmp->nextDx=NULL;
+                scorri->nextSx=tmp; //operazione di aggiunta del nodo
+            }
+            else    //altrimenti vado nella posizione successiva
+            {
+                node* prox=scorri->nextSx;
+                insert(&prox);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+//procedura provvisoria per la stampa di un albero
+//i nodi vengono stampati in verticale : prima la radice, poi il sottoalbero sinistro e infine il sottoalbero destro
+//dando sempre la precedenza alla stampa dei figli sinistri
+void stampa(node* radice){
+    if(radice==NULL)
+        return;
+    stampa(radice->nextSx);
+    stampa(radice->nextDx);
+    printf("%d\t", radice->info);
+}
+//stampa postfissa (RPN)

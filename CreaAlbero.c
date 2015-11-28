@@ -3,6 +3,7 @@
 
 typedef struct Nodo_s
 {
+    int valnome;
     struct Nodo* SX;
     struct Nodo* DX;
 }Nodo;
@@ -11,28 +12,30 @@ int main()
 {
     printf("Hello world!\n");
     Nodo* radice=malloc(sizeof(Nodo));
-    Nodo* puntatore=radice;
+    radice->SX=NULL;
+    radice->DX=NULL;
 
-    Creanodo(&puntatore);
-    Creanodo(&puntatore);
-    Creanodo(&puntatore);
-    Creanodo(&puntatore);
-    Creanodo(&puntatore);
-    Creanodo(&puntatore);
+    Creanodo(&radice,1);
+    Creanodo(&radice,2);
+    Creanodo(&radice,3);
+    Creanodo(&radice,4);
+    Creanodo(&radice,5);
+    Creanodo(&radice,6);
     return 0;
 }
 
-void Creanodo(Nodo** punt)
+void Creanodo(Nodo** head,int val)
 {
-    printf("*****************Creanodo******************");
-    if(*punt->SX != NULL)
+    Nodo* punter=*head;
+    printf("\n\n*****************Creanodo******************");
+    if(punter->SX != NULL)
     {
-        printf("\n\nA sinistra c'è già un nodo");
+        printf("\nA sinistra c'e' gia' un nodo");
     }
 
-    if(*punt->DX != NULL)
+    if(punter->DX != NULL)
     {
-        printf("\nA destra c'è già un nodo");
+        printf("\nA destra c'e' gia' un nodo");
     }
 
     char scelta;
@@ -42,36 +45,40 @@ void Creanodo(Nodo** punt)
     Nodo* nuovonodo=malloc(sizeof(Nodo));
     if(scelta=='s')
     {
-        if(*punt->SX==NULL)
+        if(punter->SX==NULL)
         {
-            *punt->SX=nuovonodo;
-            printf("\n\nil nodo è stato aggiunto a sinistra");
-            *punt=*punt->SX;
+            punter->SX=nuovonodo;
+            printf("\nil nodo e' stato aggiunto a sinistra");
+            punter=punter->SX;
+            punter->valnome=val;
         }
         else
         {
-            printf("\n\nA sinistra c'è già un nodo");
+            printf("\nA sinistra c'e' gia' un nodo");
             printf("\nCi spostiamo al nodo a sinistra");
-            *punt=*punt->SX;
+            punter=punter->SX;
+            Creanodo(&punter,val);
         }
 
     }
     else if(scelta=='d')
     {
 
-       if(*punt->DX==NULL)
+       if(punter->DX==NULL)
         {
-            *punt->DX=nuovonodo;
-            printf("\n\nil nodo è stato aggiunto a destra");
-            *punt=*punt->DX;
+            punter->DX=nuovonodo;
+            printf("\nil nodo e' stato aggiunto a destra");
+            punter=punter->DX;
+            punter->valnome=val;
         }
         else
         {
-            printf("\n\nA destra c'è già un nodo");
+            printf("\nA destra c'e' gia' un nodo");
             printf("\nCi spostiamo al nodo a destra");
-            *punt=*punt->DX;
+            punter=punter->DX;
+            Creanodo(&punter,val);
         }
     }
-    printf("*************************************************");
+    printf("\n*************************************************");
     return 0;
 }

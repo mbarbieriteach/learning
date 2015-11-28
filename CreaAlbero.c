@@ -27,7 +27,7 @@ int main()
 void Creanodo(Nodo** head,int val)
 {
     Nodo* punter=*head;
-    printf("\n\n*****************Creanodo******************");
+    printf("\n\n*****************Creanodo****************** ");
     if(punter->SX != NULL)
     {
         printf("\nA sinistra c'e' gia' un nodo");
@@ -40,9 +40,12 @@ void Creanodo(Nodo** head,int val)
 
     char scelta;
     printf("\nNodo a sinista(s) o a destra(d)? ");
+    fflush(stdin);
     scanf("%c",&scelta);
 
     Nodo* nuovonodo=malloc(sizeof(Nodo));
+    nuovonodo->SX=NULL;
+    nuovonodo->DX=NULL;
     if(scelta=='s')
     {
         if(punter->SX==NULL)

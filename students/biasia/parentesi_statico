@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int l_string=100;
+
+struct ppila{
+
+    char parentesi[l_string];
+    int index;
+};
+
+typedef struct ppila Pila;
+
+int str_lenght(char A[])
+{
+    int i=0;
+    while(A[i]!='\0')
+    {
+        i++;
+    }
+    return i;
+}
+
+void Control_String(char A[],int l_string,Pila P_PILA)
+{
+
+    int i=0;
+    P_PILA.index=i;
+    for(i=0;i<l_string;i++)
+    {
+        if(A[i]=='(')
+        {
+            P_PILA.parentesi[index]=A[i];
+            P_PILA.index++;
+        }
+        else if(A[i]==')')
+        {
+
+        P_PILA.parentesi[index]=A[i];
+        P_PILA.index--;
+        }
+    }
+    if(P_PILA.index==0)
+    {
+        printf("\n STRINGA CORRETTA");
+    }
+    else{
+        printf("\n STRINGA SBAGLIATA");
+    }
+}
+int main()
+{
+
+    char string[l_string];
+    fflush(stdin);
+    printf("\n Inserisci:");
+    fgets(string,l_string,stdin);
+    l_string=str_lenght(string);
+    printf("\n Lunghezza stringa : %d", l_string-1);
+    Pila P_PILA;
+    P_PILA.index=0;
+    Control_String(string,l_string,P_PILA);
+
+  return 0;
+}
+

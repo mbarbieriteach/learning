@@ -4,6 +4,7 @@
 typedef struct Nodo_s
 {
     int valnome;
+    int status;
     struct Nodo* SX;
     struct Nodo* DX;
 }Nodo;
@@ -14,6 +15,7 @@ int main()
     Nodo* radice=malloc(sizeof(Nodo));
     radice->SX=NULL;
     radice->DX=NULL;
+    radice->valnome=0;
 
     Creanodo(&radice,1);
     Creanodo(&radice,2);
@@ -21,13 +23,15 @@ int main()
     Creanodo(&radice,4);
     Creanodo(&radice,5);
     Creanodo(&radice,6);
+
+    visita(&radice);
     return 0;
 }
 
 void Creanodo(Nodo** head,int val)
 {
     Nodo* punter=*head;
-    printf("\n\n*****************Creanodo****************** ");
+    printf("\n\n------------Creanodo------------->(%d)",punter->valnome);
     if(punter->SX != NULL)
     {
         printf("\nA sinistra c'e' gia' un nodo");
@@ -58,7 +62,7 @@ void Creanodo(Nodo** head,int val)
         else
         {
             printf("\nA sinistra c'e' gia' un nodo");
-            printf("\nCi spostiamo al nodo a sinistra");
+            printf("\n---Ci spostiamo al nodo a sinistra---");
             punter=punter->SX;
             Creanodo(&punter,val);
         }
@@ -77,11 +81,38 @@ void Creanodo(Nodo** head,int val)
         else
         {
             printf("\nA destra c'e' gia' un nodo");
-            printf("\nCi spostiamo al nodo a destra");
+            printf("\n---Ci spostiamo al nodo a destra---");
             punter=punter->DX;
             Creanodo(&punter,val);
         }
     }
-    printf("\n*************************************************");
+    printf("\n______________________________________________\n\n\n\n");
+    return 0;
+}
+
+void visita(Nodo** head)
+{
+    Nodo* punter=*head;
+    Nodo* pp=punter;
+    punter->status=2;
+    printf("%d ",punter->valnome);
+
+    if(punter->SX!=NULL)
+    {
+        pp=punter->SX;
+    }
+
+    if(punter->SX=!NULL)
+    {
+        pp=punter->SX;
+        visita(pp);
+    }
+
+    if(punter->DX!=NULL)
+    {
+        pp=punter->DX;
+        visita(pp);
+    }
+
     return 0;
 }

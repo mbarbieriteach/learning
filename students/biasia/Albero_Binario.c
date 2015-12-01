@@ -3,7 +3,7 @@
 
 struct n_nodo
 {
-    struct Nodo* Padre;
+    struct n_nodo* Padre;
     int contenuto;
     struct n_nodo* FiglioDestro;
     struct n_nodo* FiglioSinistro;
@@ -14,23 +14,26 @@ struct n_nodo
 
 void Insert_Albero(Nodo** NODO)
 {
-    Nodo* Radice=NODO;
+    Nodo* Radice=*NODO;
+    Radice->FiglioDestro=NULL;
+    Radice->FiglioSinistro=NULL;
 
     int D_S;
     if(Radice->Padre==NULL)
     {
         printf("\n Inserisci il contenuto della radice : ");
-        scanf("%d",Padre->contenuto);
+        scanf("%d",&(Radice->contenuto));
     }
     else {
-            if(Radice->contenuto>0)
+            if(Radice->contenuto!=0)
             {
                 printf("\n il nodo e' gia' stato inserito ");
             }
             else{
                 printf("\n Inserisci il contenuto del nodo : ");
-                scanf("%d",Radice->contenuto);
+                scanf("%d",&(Radice->contenuto));
             }
+    }
             printf("\n Inserisci 1 per andare a destra ");
             printf("\n Inserisci 2 per andare a sinistra ");
             printf("\n Inserisci 3 per tornare al nodo precedente ");
@@ -42,31 +45,50 @@ void Insert_Albero(Nodo** NODO)
             case 0:
                 printf("Hai scelto di uscire dal programma");
                 break;
-            case 1:
-                Padre->FiglioDestro=malloc(sizeof(Nodo));
-                Insert_Albero(Radice->FiglioDestro);
+            case 1: {
+                struct n_nodo* new_address = malloc(sizeof(Nodo));
+                printf("  %d  ", new_address);
+                Radice->FiglioDestro = new_address;
+                printf("r54");
+                printf("%d", Radice->FiglioDestro);
+                printf("r56");
+                Radice->FiglioDestro->contenuto=0;
+                printf("r57");
+                Insert_Albero(&(Radice->FiglioDestro));
                 break;
+            }
             case 2:
-                Padre->FiglioSinistro=malloc(sizeof(Nodo));
-                Insert_Albero(Radice->FiglioSinistro);
+                {
+                struct n_nodo* new_address = malloc(sizeof(Nodo));
+                printf("  %d  ", new_address);
+                Radice->FiglioSinistro = new_address;
+                printf("r54");
+                printf("%d", Radice->FiglioSinistro);
+                printf("r56");
+                Radice->FiglioSinistro->contenuto=0;
+                printf("r57");
+                Insert_Albero(&(Radice->FiglioSinistro));
                 break;
+                }
             case 3:
-                Insert_Albero(Radice->Padre);
+                Insert_Albero(&(Radice->Padre));
                 break;
 
         }
 
     }
-}
+
 
 
 
 
 int main()
 {
-    Nodo** Radice=malloc(sizeof(Nodo));
+
+    Nodo* Radice=malloc(sizeof(Nodo));
+    printf("%d", Radice);
     Radice->Padre=NULL;
-    Insert_Albero(Radice);
+    Insert_Albero(&Radice);
 
     return 0;
 }

@@ -1,0 +1,4 @@
+while ! vuota(a)
+  R <- Dequeue(a)
+  enqueue(R.sx)
+  enqueue(R.dx)

@@ -49,11 +49,11 @@ void Insert_Albero(Nodo** NODO)
                 struct n_nodo* new_address = malloc(sizeof(Nodo));
                 printf("  %d  ", new_address);
                 Radice->FiglioDestro = new_address;
-                printf("r54");
+                //printf("r54");
                 printf("%d", Radice->FiglioDestro);
-                printf("r56");
+                //printf("r56");
                 Radice->FiglioDestro->contenuto=0;
-                printf("r57");
+                //printf("r57");
                 Insert_Albero(&(Radice->FiglioDestro));
                 break;
             }
@@ -62,11 +62,11 @@ void Insert_Albero(Nodo** NODO)
                 struct n_nodo* new_address = malloc(sizeof(Nodo));
                 printf("  %d  ", new_address);
                 Radice->FiglioSinistro = new_address;
-                printf("r54");
+                //printf("r54");
                 printf("%d", Radice->FiglioSinistro);
-                printf("r56");
+                //printf("r56");
                 Radice->FiglioSinistro->contenuto=0;
-                printf("r57");
+                //printf("r57");
                 Insert_Albero(&(Radice->FiglioSinistro));
                 break;
                 }

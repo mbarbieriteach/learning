@@ -1,0 +1,111 @@
+#include<stdio.h>
+#include<stdlib.h>
+/*UTILIZZO DEI MESSAGGI PER CONTROLLARE LA CORRETTA ESESCUZIONE DEL PROGRAMMA IN TUTTE LE PORZIONI
+DI CODICE IN QUANTO PROCEDO A TENTATIVI PERCE LA FUNZIONE PER ESEGUIRE  L'HASH NON SEMBRA FUNZIONARE
+NEL MIGLIORE DEI MODI.*/
+
+struct indirizzo
+{
+    char paese[10];
+    char via [10];
+    int numerocivico;
+};
+
+int HASHING_ALPHABET(char carattere)
+{
+    int HASH;
+    if(carattere<10||carattere>0)
+    {
+
+        switch(carattere)
+        {
+
+            case 0:
+                    carattere=carattere-(carattere/2)+1;
+            break;
+            case 1:
+                HASH=carattere-(carattere/2)+1;
+            break;
+            case 2:
+                HASH=carattere-(carattere/2)+2;
+            break;
+            case 3:
+                HASH=carattere-(carattere/2)+3;
+            break;
+            case 4:
+                HASH=carattere-(carattere/2)+4;
+            break;
+            case 5:
+                HASH=carattere-(carattere/2)+5;
+            break;
+            case 6:
+                HASH=carattere-(carattere/2)+6;
+            break;
+            case 7:
+                HASH=carattere-(carattere/2)+7;
+            break;
+            case 8:
+                HASH=carattere-(carattere/2)+8;
+            break;
+            case 9:
+                HASH=carattere-(carattere/2)+9;
+            break;
+        }
+    }
+    else{
+        HASH=carattere/2+carattere;
+    }
+    return HASH;
+}
+
+
+struct S_STUDENT
+{
+    char Nome[10];
+    char Cognome[10];
+    int Hash_Matricola[20];
+    struct indirizzo address;
+};
+
+void HASH_FUNCTION(char nome[10],char cognome[10],int *HASH[20])
+{
+    printf("\n |ENTERED HASH_FUNCTION|");//messaggio di entrata nella funzione
+    for(int i=0;i<10;i++)
+    {
+        *HASH[i]=HASHING_ALPHABET(nome[i]);
+    }
+    for(int j=10;j<20;j++)
+    {
+        *HASH[j]=HASHING_ALPHABET(cognome[j]);
+    }
+    printf("EXITING HASH_FUNCTION");//messaggio di uscita dalla funzione
+
+}
+
+
+
+typedef struct S_STUDENT Student;
+typedef struct indirizzo address;
+
+
+int main()
+{
+    printf("\n INSERISCI IL NUMERO DI STUDENTI NELLA SCUOLA");
+    int n_studenti;
+    scanf("%d",&n_studenti);
+    Student Studenti[n_studenti];
+    for(int i=0;i<n_studenti;i++)
+    {
+        printf("\n Inserisci nome :");
+        fflush(stdin);
+        scanf("%s",&Studenti[i].Nome);
+        printf("\n Inserisci il cognome: ");
+        fflush(stdin);
+        scanf("&s",&Studenti[i].Cognome);
+        printf("\n|EVERYTHING OK|");// messaggio di conferma fine input
+        HASH_FUNCTION(Studenti[i].Nome,Studenti[i].Cognome,&Studenti[i].Hash_Matricola);
+        printf("LA MATRICOLA CORRISPONDENTE E' : %s ",&Studenti[i].Hash_Matricola);
+    }
+   return 0;
+
+}
